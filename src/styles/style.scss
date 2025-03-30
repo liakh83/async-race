@@ -1,6 +1,17 @@
 @import url('normalize.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+  box-sizing: border-box;
+}
 
 :root {
+  --button-border: #7f7c7c;
+  --button-background: #717148;
+  --text-white: #f0f0f0;
+  --dark-grey: #2c2c2c;
+  --main-background: #797878;
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -27,11 +38,13 @@ a:hover {
 
 body {
   display: flex;
-  place-items: center;
+  flex-direction: column;
 
-  min-width: 320px;
+  max-width: 100%;
   min-height: 100vh;
-  margin: 0;
+  margin: 0 auto;
+
+  background-color: var(--dark-grey);
 }
 
 h1 {
