@@ -1,0 +1,11 @@
+.button {
+  display: flex;
+
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--button-border);
+  border-radius: 0.5rem;
+
+  color: #fff;
+
+  background-color: var(--button-background);
+}
