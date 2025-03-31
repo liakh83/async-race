@@ -2,9 +2,14 @@ import '@/app/pages/garage/page-garage.scss';
 import { formCreateCars } from '@/app/view/create-car/create-car';
 import { formUpdateCars } from '@/app/view/update-car/update-car';
 import { createElement } from '@/app/utils/create-element';
+import { optionBtnWrapper } from '@/app/view/option-button/option-btn';
 
 export const inputsContainer = createElement('div', {
   className: ['input-container'],
+  children: [formCreateCars, formUpdateCars],
 });
 
-inputsContainer.append(formCreateCars, formUpdateCars);
+export const optionSection = createElement('section', {
+  className: ['option-section'],
+  children: [inputsContainer, optionBtnWrapper],
+});
