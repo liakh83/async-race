@@ -1,17 +1,19 @@
-import { form } from '@/app/components/form/form';
-import { input } from '@/app/components/input/input';
-import { button } from '@/app/components/button/button';
+import { createForm } from '@/app/components/form/form';
+import { createInput } from '@/app/components/input/input';
+import { createButton } from '@/app/components/button/button';
 
-export const formCreateCars = form();
+export const formCreateCars = createForm();
 
-const inputCreate = input();
-inputCreate.setAttribute('type', 'text');
-inputCreate.setAttribute('placeholder', 'Car model');
+const inputCreate = createInput({
+  attributes: { type: 'text', placeholder: 'Car model' },
+});
 
-const inputColor = input();
-inputColor.setAttribute('type', 'color');
+const inputColor = createInput({
+  attributes: { type: 'color' },
+});
 
-const createButton = button();
-createButton.textContent = 'create';
+const createCarBtn = createButton({
+  textContent: 'create',
+});
 
-formCreateCars.append(inputCreate, inputColor, createButton);
+formCreateCars.append(inputCreate, inputColor, createCarBtn);

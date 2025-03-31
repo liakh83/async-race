@@ -1,17 +1,19 @@
-import { form } from '@/app/components/form/form';
-import { input } from '@/app/components/input/input';
-import { button } from '@/app/components/button/button';
+import { createForm } from '@/app/components/form/form';
+import { createInput } from '@/app/components/input/input';
+import { createButton } from '@/app/components/button/button';
 
-export const formUpdateCars = form();
+export const formUpdateCars = createForm();
 
-const inputUpdate = input();
-inputUpdate.setAttribute('type', 'text');
-inputUpdate.setAttribute('placeholder', 'Car model');
+const inputUpdate = createInput({
+  attributes: { type: 'text', placeholder: 'Car model' },
+});
 
-const inputColor = input();
-inputColor.setAttribute('type', 'color');
+const inputColor = createInput({
+  attributes: { type: 'color' },
+});
 
-const createButton = button();
-createButton.textContent = 'create';
+const updateCarBtn = createButton({
+  textContent: 'update',
+});
 
-formUpdateCars.append(inputUpdate, inputColor, createButton);
+formUpdateCars.append(inputUpdate, inputColor, updateCarBtn);
