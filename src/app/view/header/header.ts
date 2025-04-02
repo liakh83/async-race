@@ -1,22 +1,22 @@
-import '@/app/components/header/header.scss';
+import '@/app/view/header/header.scss';
 import { createButton } from '@/app/components/button/button';
 import { createElement } from '@/app/utils/create-element';
-import { appMain } from '@/app/app';
-import { optionSection } from '@/app/pages/garage/page-garage';
-import { winnerSection } from '@/app/pages/winner/winner-section';
+import { appMain, garageCarsList, winnersList } from '@/app/app';
+import { optionSection } from '@/app/pages/garage/garage';
+import { winnerSection } from '@/app/pages/winner/winner';
 import { sectionPagination } from '../../components/pagination/pagination';
 
 const toGarageBtn = createButton({
   textContent: 'To Garage',
   onclick: () => {
-    appMain.replaceChildren(optionSection, sectionPagination);
+    appMain.replaceChildren(optionSection, sectionPagination, garageCarsList);
   },
 });
 
 const toWinnerBtn = createButton({
   textContent: 'To Winner',
   onclick: () => {
-    appMain.replaceChildren(winnerSection, sectionPagination);
+    appMain.replaceChildren(winnerSection, sectionPagination, winnersList);
   },
 });
 

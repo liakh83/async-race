@@ -1,6 +1,8 @@
 .app-main {
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
+
   max-width: 100%;
+
   background-color: var(--main-background);
 }
