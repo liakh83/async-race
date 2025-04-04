@@ -2,44 +2,49 @@ import '@/app/components/control-button/control-btn.scss';
 import { createElement } from '@/app/utils/create-element';
 import { createButton } from '../button/button';
 
-const selectBtn = createButton({
-  textContent: 'Select',
-  onclick: () => {
-    console.log('click startBtn');
-  },
-});
-const removeBtn = createButton({
-  textContent: 'Remove',
-  onclick: () => {
-    console.log('click removeBtn');
-  },
-});
+export const createUpdateListBtn = (model: string): HTMLDivElement => {
+  const selectBtn = createButton({
+    textContent: 'Select',
+    onclick: () => {
+      console.log('click startBtn');
+    },
+  });
 
-const startBtn = createButton({
-  textContent: 'A',
-  onclick: () => {
-    console.log('click startBtn');
-  },
-});
+  const removeBtn = createButton({
+    textContent: 'Remove',
+    onclick: () => {
+      console.log('click removeBtn');
+    },
+  });
 
-const stopBtn = createButton({
-  textContent: 'B',
-  onclick: () => {
-    console.log('click stopBtn');
-  },
-});
+  const carModel = createElement('span', {
+    className: ['text-model'],
+    textContent: model,
+  });
 
-const carModel = createElement('span', {
-  className: ['text-model'],
-  textContent: 'Audi',
-});
+  return createElement('div', {
+    className: ['update-list-btn'],
+    children: [removeBtn, selectBtn, carModel],
+  });
+};
 
-export const updateListBtn = createElement('div', {
-  className: ['update-list-btn'],
-  children: [removeBtn, selectBtn, carModel],
-});
+export const createDriveBtnControl = (): HTMLDivElement => {
+  const startBtn = createButton({
+    textContent: 'Start',
+    onclick: () => {
+      console.log('click startBtn');
+    },
+  });
 
-export const driveBtnControl = createElement('div', {
-  className: ['drive-button'],
-  children: [startBtn, stopBtn],
-});
+  const stopBtn = createButton({
+    textContent: 'Reset',
+    onclick: () => {
+      console.log('click stopBtn');
+    },
+  });
+
+  return createElement('div', {
+    className: ['drive-button'],
+    children: [startBtn, stopBtn],
+  });
+};

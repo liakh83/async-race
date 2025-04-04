@@ -1,12 +1,20 @@
 import '@/app/components/car-item/car-item.scss';
 import { createElement } from '@/app/utils/create-element';
 import { createCarSVG } from '@/app/components/car-svg/car-svg';
-import { driveBtnControl, updateListBtn } from '../control-button/control-button';
+import { createDriveBtnControl, createUpdateListBtn } from '../control-button/control-button';
+import type { Car } from '@/app/utils/types';
 
-export const createCarItem = (): {
+export const createCarItem = (
+  car: Car,
+): {
   element: HTMLDivElement;
 } => {
-  createCarSVG().then((carSVG) => {
+  const { name, color } = car;
+  const carContainer = createElement('div', {
+    className: ['car-svg-container'],
+  });
+
+  createCarSVG(color).then((carSVG) => {
     carContainer.append(carSVG);
   });
 
@@ -15,9 +23,8 @@ export const createCarItem = (): {
     src: './images/finish-flag.png',
   });
 
-  const carContainer = createElement('div', {
-    className: ['car-svg-container'],
-  });
+  const updateListBtn = createUpdateListBtn(name);
+  const driveBtnControl = createDriveBtnControl();
 
   const wrapper = createElement('div', {
     className: ['wrapper'],

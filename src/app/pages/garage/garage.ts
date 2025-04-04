@@ -6,6 +6,10 @@ import { optionBtnWrapper } from '@/app/view/option-button/option-btn';
 import { createCount } from '@/app/components/counter-cars/counter';
 import { createList } from '@/app/view/car-list/car-list';
 import { createCarItem } from '@/app/components/car-item/car-item';
+import { getData, path } from '@/app/services/api/api';
+import type { Car } from '@/app/utils/types';
+
+const loadCars = (): Promise<{ data: Car[]; total: number }> => getData(path.garage);
 
 export const inputsContainer = createElement('div', {
   className: ['input-container'],
@@ -20,10 +24,18 @@ export const optionSection = createElement('section', {
 export const createGarageCarsList = (): HTMLElement => {
   const counter = createCount('Garage', 0);
   const carsList = createList();
-  const carItem = createCarItem();
+
+  loadCars().then(({ data }) => {
+    const total = data.length;
+    counter.update(total);
+    const carItems = data.map((car) => {
+      return createCarItem(car).element;
+    });
+    carsList.update(carItems);
+  });
 
   return createElement('section', {
     className: ['section-garage'],
-    children: [counter.element, carsList.element, carItem.element],
+    children: [counter.element, carsList.element],
   });
 };

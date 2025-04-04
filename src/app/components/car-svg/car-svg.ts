@@ -1,5 +1,5 @@
 import '@/app/components/car-svg/car-svg.scss';
-export const createCarSVG = async (): Promise<SVGElement> => {
+export const createCarSVG = async (color: string): Promise<SVGElement> => {
   const response = await fetch('./images/car-img.svg');
   const svgText = await response.text();
 
@@ -11,7 +11,7 @@ export const createCarSVG = async (): Promise<SVGElement> => {
 
     const paths = element.querySelectorAll('path');
     paths.forEach((path) => {
-      path.setAttribute('fill', '#fff');
+      path.setAttribute('fill', `${color}`);
     });
 
     return element;
