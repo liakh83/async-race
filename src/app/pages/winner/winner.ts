@@ -1,4 +1,4 @@
-import { createList } from '@/app/components/car-list/car-list';
+import { createList } from '@/app/view/car-list/car-list';
 import { createCount } from '@/app/components/counter-cars/counter';
 import { createElement } from '@/app/utils/create-element';
 

@@ -4,4 +4,5 @@ export interface OptionsElement<K extends keyof HTMLElementTagNameMap> extends P
   textContent?: string;
   attributes?: Record<string, string>;
   children?: HTMLElement[];
+  src?: string;
 }

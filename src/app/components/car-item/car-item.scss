@@ -1,0 +1,36 @@
+.car-item {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  padding: 0.5rem 0 0.1rem;
+  border-bottom: 0.2rem dashed #fff;
+}
+
+.car-svg-container {
+  position: absolute;
+  left: 150px;
+
+  display: flex;
+
+  max-width: 100px;
+  min-height: 40px;
+}
+
+.finish-flag {
+  position: absolute;
+  top: 3rem;
+  right: 150px;
+
+  display: flex;
+
+  width: 40px;
+  height: 40px;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+}

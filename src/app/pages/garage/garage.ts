@@ -4,7 +4,8 @@ import { formUpdateCars } from '@/app/view/update-car/update-car';
 import { createElement } from '@/app/utils/create-element';
 import { optionBtnWrapper } from '@/app/view/option-button/option-btn';
 import { createCount } from '@/app/components/counter-cars/counter';
-import { createList } from '@/app/components/car-list/car-list';
+import { createList } from '@/app/view/car-list/car-list';
+import { createCarItem } from '@/app/components/car-item/car-item';
 
 export const inputsContainer = createElement('div', {
   className: ['input-container'],
@@ -19,9 +20,10 @@ export const optionSection = createElement('section', {
 export const createGarageCarsList = (): HTMLElement => {
   const counter = createCount('Garage', 0);
   const carsList = createList();
+  const carItem = createCarItem();
 
   return createElement('section', {
     className: ['section-garage'],
-    children: [counter.element, carsList.element],
+    children: [counter.element, carsList.element, carItem.element],
   });
 };
