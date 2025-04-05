@@ -2,7 +2,7 @@ const BASE_URL = 'http://127.0.0.1:3000';
 
 export const path = {
   garage: 'garage',
-  winner: 'winner',
+  winners: 'winners',
 };
 
 export type QueryParam = { key: string; value: string | number };
@@ -10,14 +10,11 @@ export type QueryParam = { key: string; value: string | number };
 const generateQueryString = (queryParams: QueryParam[] = []): string =>
   queryParams.length ? `?${queryParams.map((parts) => `${parts.key}=${parts.value}`).join('&')}` : '';
 
-export const getData = async <T>(
-  pathKey: string,
-  queryParams: QueryParam[] = [],
-): Promise<{ data: T[]; total: number }> => {
+export const getData = async <T>(pathKey: string, queryParams: QueryParam[] = []): Promise<{ data: T[] }> => {
   const response = await fetch(`${BASE_URL}/${pathKey}${generateQueryString(queryParams)}`);
   const data: T[] = await response.json();
   const total = Number(response.headers.get('X-Total-Count') || '0');
-  return { data, total };
+  return { data };
 };
 
 export const getItemById = async <T>(pathKey: string, id: number): Promise<T> => {

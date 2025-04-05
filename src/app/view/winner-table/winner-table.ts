@@ -3,14 +3,15 @@ import { createElement } from '@/app/utils/create-element';
 import { createCarSVG } from '@/app/components/car-svg/car-svg';
 import type { Winners, Car } from '@/app/utils/types';
 import { getItemById, path } from '@/app/services/api/api';
+
 export const createWinnerTable = (): HTMLTableElement => {
   const table = createElement('table', {
     className: ['winner-table'],
   });
 
-  const headerRow = createElement('tr');
+  const headerRow = createElement('tr', { className: ['header-row'] });
   ['№', 'ID', 'Car', 'Name', 'Wins', 'Time'].forEach((text) =>
-    headerRow.append(createElement('th', { textContent: `${text}` })),
+    headerRow.append(createElement('th', { className: ['header-cell'], textContent: `${text}` })),
   );
 
   table.append(headerRow);
@@ -18,14 +19,14 @@ export const createWinnerTable = (): HTMLTableElement => {
 };
 
 export const createWinnerRow = (winner: Winners, index: number, table: HTMLTableElement): void => {
-  const rowTable = createElement('tr');
-  const numberCell = createElement('td', { textContent: `${index + 1}` });
-  const idCell = createElement('td', { textContent: `${winner.id}` });
-  const carCell = createElement('td');
+  const rowTable = createElement('tr', { className: ['table-row'] });
+  const numberCell = createElement('td', { className: ['table-cell'], textContent: `${index + 1}` });
+  const idCell = createElement('td', { className: ['table-cell'], textContent: `${winner.id}` });
+  const carCell = createElement('td', { className: ['table-cell'] });
 
-  const nameCell = createElement('td');
-  const winsCell = createElement('td', { textContent: `${winner.wins}` });
-  const timeCell = createElement('td', { textContent: `${winner.time}` });
+  const nameCell = createElement('td', { className: ['table-cell'] });
+  const winsCell = createElement('td', { className: ['table-cell'], textContent: `${winner.wins}` });
+  const timeCell = createElement('td', { className: ['table-cell'], textContent: `${winner.time}` });
   rowTable.append(numberCell, idCell, carCell, nameCell, winsCell, timeCell);
   table.append(rowTable);
 

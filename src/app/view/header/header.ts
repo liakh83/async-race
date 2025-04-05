@@ -3,7 +3,6 @@ import { createButton } from '@/app/components/button/button';
 import { createElement } from '@/app/utils/create-element';
 import { appMain, garageCarsList, winnersList } from '@/app/app';
 import { optionSection } from '@/app/pages/garage/garage';
-import { winnerSection } from '@/app/pages/winner/winner';
 import { sectionPagination } from '../../components/pagination/pagination';
 
 const toGarageBtn = createButton({
@@ -16,7 +15,7 @@ const toGarageBtn = createButton({
 const toWinnerBtn = createButton({
   textContent: 'To Winner',
   onclick: () => {
-    appMain.replaceChildren(winnerSection, sectionPagination, winnersList);
+    appMain.replaceChildren(sectionPagination, winnersList);
   },
 });
 

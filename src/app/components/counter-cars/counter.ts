@@ -1,3 +1,4 @@
+import '@/app/components/counter-cars/counter.scss';
 import { createElement } from '@/app/utils/create-element';
 
 export const createCount = (
