@@ -9,7 +9,7 @@ import { createCarItem } from '@/app/components/car-item/car-item';
 import { getData, path } from '@/app/services/api/api';
 import type { Car } from '@/app/utils/types';
 
-const loadCars = (): Promise<{ data: Car[]; total: number }> => getData(path.garage);
+const loadCars = (): Promise<{ data: Car[] }> => getData(path.garage);
 
 export const inputsContainer = createElement('div', {
   className: ['input-container'],

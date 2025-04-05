@@ -13,7 +13,7 @@ export interface Car {
   color: string;
 }
 
-export interface Winner {
+export interface Winners {
   id: number;
   wins: number;
   time: number;
