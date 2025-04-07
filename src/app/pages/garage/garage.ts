@@ -43,7 +43,7 @@ export const createGarageCarsList = (page: number = 1): void => {
     const carItems = data.map((car) => createCarItem(car).element);
     carsList.update(carItems);
 
-    const totalPages: number = totalItem <= 7 ? 1 : Math.floor(totalItem / maxCarsOnPage);
+    const totalPages: number = totalItem <= 7 ? 1 : Math.ceil(totalItem / maxCarsOnPage);
 
     console.log(totalPages);
     const sectionPagination = createPagination(totalPages, (newPage) => {

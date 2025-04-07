@@ -13,9 +13,8 @@ const resetRaceBtn = createButton({
 });
 
 const createCarsBtn = createButton({
-  textContent: 'Create 100 Cars',
+  textContent: 'Create 100 cars',
   onclick: async () => {
-    console.log('Create 100 Cars');
     await generateRandomCars(100);
     createGarageCarsList();
   },

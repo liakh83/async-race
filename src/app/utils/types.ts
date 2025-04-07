@@ -1,5 +1,6 @@
 export interface OptionsElement<K extends keyof HTMLElementTagNameMap> extends Partial<GlobalEventHandlers> {
   elementType?: K;
+  disabled?: boolean;
   className?: string[];
   textContent?: string;
   attributes?: Record<string, string>;
