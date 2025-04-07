@@ -9,6 +9,7 @@ import { createCarItem } from '@/app/components/car-item/car-item';
 import { getData, path } from '@/app/services/api/api';
 import type { Car } from '@/app/utils/types';
 import { createPagination } from '@/app/components/pagination/pagination';
+import { getCurrentGarageState, setCurrentGarageState } from '@/app/utils/global-state';
 
 const maxCarsOnPage = 7;
 
@@ -37,7 +38,7 @@ export const createGarageCarsList = (page: number = 1): void => {
   const counter = createCount('Garage', 0);
   const carsList = createList();
 
-  loadCars(page).then(({ data, totalItem }) => {
+  loadCars(getCurrentGarageState()).then(({ data, totalItem }) => {
     counter.update(totalItem);
     const carItems = data.map((car) => createCarItem(car).element);
     carsList.update(carItems);
@@ -45,14 +46,11 @@ export const createGarageCarsList = (page: number = 1): void => {
     const totalPages: number = totalItem <= 7 ? 1 : Math.floor(totalItem / maxCarsOnPage);
 
     console.log(totalPages);
-    const sectionPagination = createPagination(
-      totalPages,
-      (newPage) => {
-        console.log('текущая страница ', newPage);
-        createGarageCarsList(newPage);
-      },
-      page,
-    );
+    const sectionPagination = createPagination(totalPages, (newPage) => {
+      setCurrentGarageState(newPage);
+      console.log('текущая страница ', newPage);
+      createGarageCarsList(newPage);
+    });
 
     const garageCarsList = createElement('div', {
       className: ['garage-car-list'],

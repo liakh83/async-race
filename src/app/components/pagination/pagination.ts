@@ -1,27 +1,25 @@
 import '@/app/components/pagination/section-pagination.scss';
 import { createElement } from '@/app/utils/create-element';
 import { createButton } from '@/app/components/button/button';
+import { getCurrentGarageState, setCurrentGarageState } from '@/app/utils/global-state';
 
-export const createPagination = (
-  totalPage: number,
-  onPageCount: (newPage: number) => void,
-  startPage: number = 1,
-): HTMLElement => {
-  let currantPage = startPage;
+export const createPagination = (totalPage: number, onPageCount: (newPage: number) => void): HTMLElement => {
+  let currentPage = getCurrentGarageState();
 
   const pageIndicator = createElement('span', {
     className: ['number-page'],
-    textContent: `${currantPage} / ${totalPage}`,
+    textContent: `${currentPage} / ${totalPage}`,
   });
 
   const previousBtn = createButton({
     textContent: 'Prev',
     onclick: () => {
       console.log('privies');
-      if (currantPage > 1) {
-        currantPage -= 1;
+      if (currentPage > 1) {
+        currentPage -= 1;
+        setCurrentGarageState(currentPage);
         updateUI();
-        onPageCount(currantPage);
+        onPageCount(currentPage);
       }
     },
   });
@@ -30,18 +28,19 @@ export const createPagination = (
     textContent: 'Next',
     onclick: () => {
       console.log('next');
-      if (totalPage > currantPage) {
-        currantPage += 1;
+      if (totalPage > currentPage) {
+        currentPage += 1;
+        setCurrentGarageState(currentPage);
         updateUI();
-        onPageCount(currantPage);
+        onPageCount(currentPage);
       }
     },
   });
 
   const updateUI = (): void => {
-    pageIndicator.textContent = `${currantPage} / ${totalPage}`;
-    previousBtn.disabled = currantPage === 1;
-    nextBtn.disabled = currantPage === totalPage;
+    pageIndicator.textContent = `${currentPage} / ${totalPage}`;
+    previousBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPage;
   };
   updateUI();
 
