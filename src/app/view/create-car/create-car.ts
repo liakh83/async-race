@@ -1,4 +1,3 @@
-import '@/app/view/create-car/create-car.scss';
 import { createForm } from '@/app/components/form/form';
 import { createInput } from '@/app/components/input/input';
 import { createButton } from '@/app/components/button/button';

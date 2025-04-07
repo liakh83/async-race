@@ -9,7 +9,7 @@ export const createCarItem = (
 ): {
   element: HTMLDivElement;
 } => {
-  const { name, color } = car;
+  const { id, name, color } = car;
   const carContainer = createElement('div', {
     className: ['car-svg-container'],
   });
@@ -23,7 +23,7 @@ export const createCarItem = (
     src: './images/finish-flag.png',
   });
 
-  const updateListBtn = createUpdateListBtn(name);
+  const updateListBtn = createUpdateListBtn(id, name, color);
   const driveBtnControl = createDriveBtnControl();
 
   const wrapper = createElement('div', {
