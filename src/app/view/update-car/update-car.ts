@@ -1,7 +1,7 @@
 import { createForm } from '@/app/components/form/form';
 import { createInput } from '@/app/components/input/input';
 import { createButton } from '@/app/components/button/button';
-import { getSelectedCarId } from '@/app/utils/selected- id';
+import { getSelectedCarId } from '@/app/utils/selected-id';
 import { path, updateItem } from '@/app/services/api/api';
 import { createGarageCarsList } from '@/app/pages/garage/garage';
 import { getCurrentGarageState } from '@/app/utils/global-state';

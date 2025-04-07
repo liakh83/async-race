@@ -2,7 +2,7 @@ import '@/app/components/control-button/control-btn.scss';
 import { createElement } from '@/app/utils/create-element';
 import { createButton } from '../button/button';
 import { inputUpdateName, inputUpdateColor } from '@/app/view/update-car/update-car';
-import { setSelectedCarId } from '@/app/utils/selected- id';
+import { setSelectedCarId } from '@/app/utils/selected-id';
 import { validateForm } from '@/app/view/update-car/update-car';
 
 export const createUpdateListBtn = (id: number, model: string, color: string): HTMLDivElement => {
