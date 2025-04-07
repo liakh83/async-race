@@ -45,10 +45,14 @@ export const createGarageCarsList = (page: number = 1): void => {
     const totalPages: number = totalItem <= 7 ? 1 : Math.floor(totalItem / maxCarsOnPage);
 
     console.log(totalPages);
-    const sectionPagination = createPagination(totalPages, (newPage) => {
-      console.log('текущая страница ', newPage);
-      createGarageCarsList(newPage);
-    });
+    const sectionPagination = createPagination(
+      totalPages,
+      (newPage) => {
+        console.log('текущая страница ', newPage);
+        createGarageCarsList(newPage);
+      },
+      page,
+    );
 
     const garageCarsList = createElement('div', {
       className: ['garage-car-list'],
