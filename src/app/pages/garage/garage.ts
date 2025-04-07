@@ -8,8 +8,16 @@ import { createList } from '@/app/view/car-list/car-list';
 import { createCarItem } from '@/app/components/car-item/car-item';
 import { getData, path } from '@/app/services/api/api';
 import type { Car } from '@/app/utils/types';
+import { createPagination } from '@/app/components/pagination/pagination';
 
-const loadCars = (): Promise<{ data: Car[] }> => getData(path.garage);
+const maxCarsOnPage = 7;
+
+const loadCars = (page: number): Promise<{ data: Car[]; totalItem: number }> => {
+  return getData(path.garage, [
+    { key: '_page', value: String(page) },
+    { key: '_limit', value: String(maxCarsOnPage) },
+  ]);
+};
 
 export const inputsContainer = createElement('div', {
   className: ['input-container'],
@@ -21,21 +29,31 @@ export const optionSection = createElement('section', {
   children: [inputsContainer, optionBtnWrapper],
 });
 
-export const createGarageCarsList = (): HTMLElement => {
+export const garageContainer = createElement('section', {
+  className: ['section-garage'],
+});
+
+export const createGarageCarsList = (page: number = 1): void => {
   const counter = createCount('Garage', 0);
   const carsList = createList();
 
-  loadCars().then(({ data }) => {
-    const total = data.length;
-    counter.update(total);
-    const carItems = data.map((car) => {
-      return createCarItem(car).element;
-    });
+  loadCars(page).then(({ data, totalItem }) => {
+    counter.update(totalItem);
+    const carItems = data.map((car) => createCarItem(car).element);
     carsList.update(carItems);
-  });
 
-  return createElement('section', {
-    className: ['section-garage'],
-    children: [counter.element, carsList.element],
+    const totalPages: number = totalItem <= 7 ? 1 : Math.floor(totalItem / maxCarsOnPage);
+
+    console.log(totalPages);
+    const sectionPagination = createPagination(totalPages, (newPage) => {
+      console.log('текущая страница ', newPage);
+      createGarageCarsList(newPage);
+    });
+
+    const garageCarsList = createElement('div', {
+      className: ['garage-car-list'],
+      children: [counter.element, carsList.element],
+    });
+    garageContainer.replaceChildren(sectionPagination, garageCarsList);
   });
 };
