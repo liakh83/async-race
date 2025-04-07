@@ -2,6 +2,7 @@ import '@/app/view/option-button/option-btn.scss';
 import { createElement } from '@/app/utils/create-element';
 import { createButton } from '@/app/components/button/button';
 import { generateRandomCars } from '@/app/utils/random-cars';
+import { createGarageCarsList } from '@/app/pages/garage/garage';
 
 const startRaceBtn = createButton({
   textContent: 'Start Race',
@@ -13,9 +14,10 @@ const resetRaceBtn = createButton({
 
 const createCarsBtn = createButton({
   textContent: 'Create 100 Cars',
-  onclick: () => {
+  onclick: async () => {
     console.log('Create 100 Cars');
-    generateRandomCars();
+    await generateRandomCars(100);
+    createGarageCarsList();
   },
 });
 
