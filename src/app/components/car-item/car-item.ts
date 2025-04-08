@@ -24,7 +24,7 @@ export const createCarItem = (
   });
 
   const updateListBtn = createUpdateListBtn(id, name, color);
-  const driveBtnControl = createDriveBtnControl();
+  const driveBtnControl = createDriveBtnControl(id, carContainer);
 
   const wrapper = createElement('div', {
     className: ['wrapper'],

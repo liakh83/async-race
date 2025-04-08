@@ -7,6 +7,8 @@ import { validateForm } from '@/app/view/update-car/update-car';
 import { deleteItem, path } from '@/app/services/api/api';
 import { getCurrentGarageState } from '@/app/utils/global-state';
 import { createGarageCarsList } from '@/app/pages/garage/garage';
+import { runCar } from '@/app/services/animate-car/start-car';
+import { resetCar } from '@/app/services/animate-car/reset-car';
 
 export const createUpdateListBtn = (id: number, model: string, color: string): HTMLDivElement => {
   const selectBtn = createButton({
@@ -24,7 +26,6 @@ export const createUpdateListBtn = (id: number, model: string, color: string): H
   const removeBtn = createButton({
     textContent: 'Remove',
     onclick: async () => {
-      console.log('click removeBtn');
       const isDelete = await deleteItem(path.garage, id);
       if (isDelete) {
         const currentPage = getCurrentGarageState();
@@ -44,18 +45,22 @@ export const createUpdateListBtn = (id: number, model: string, color: string): H
   });
 };
 
-export const createDriveBtnControl = (): HTMLDivElement => {
+export const createDriveBtnControl = (id: number, car: HTMLElement): HTMLDivElement => {
   const startBtn = createButton({
     textContent: 'Start',
     onclick: () => {
-      console.log('click startBtn');
+      runCar(id, car);
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
     },
   });
 
   const stopBtn = createButton({
     textContent: 'Reset',
     onclick: () => {
-      console.log('click stopBtn');
+      resetCar(id, car);
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
     },
   });
 

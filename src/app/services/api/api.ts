@@ -47,13 +47,12 @@ export const updateItem = async <T>(pathKey: string, id: number, body: T): Promi
   return response.json();
 };
 
-export const patchItem = async <T>(pathKey: string, id: number, body: Partial<T>): Promise<T> => {
-  const response = await fetch(`${BASE_URL}/${pathKey}/${id}`, {
+export const patchEngin = async <T = { velocity: number; distance: number }>(
+  id: number,
+  status: 'started' | 'stopped' | 'drive',
+): Promise<T> => {
+  const response = await fetch(`${BASE_URL}/engine?id=${id}&status=${status}`, {
     method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
   });
   return response.json();
 };
