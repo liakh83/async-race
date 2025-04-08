@@ -8,6 +8,7 @@ export const createCarItem = (
   car: Car,
 ): {
   element: HTMLDivElement;
+  carContainer: HTMLDivElement;
 } => {
   const { id, name, color } = car;
   const carContainer = createElement('div', {
@@ -35,7 +36,9 @@ export const createCarItem = (
     className: ['car-item'],
     children: [updateListBtn, wrapper, finishFlag],
   });
+
   return {
     element: carItem,
+    carContainer,
   };
 };

@@ -1,4 +1,4 @@
-const animations = new Map<number, number>();
+export const animations = new Map<number, number>();
 export const carPosition = new Map<number, number>();
 
 export const animateCar = (car: HTMLElement, duration: number, id: number): Promise<void> => {
@@ -7,7 +7,8 @@ export const animateCar = (car: HTMLElement, duration: number, id: number): Prom
 
     const frame = (now: number): void => {
       const elapsed = now - start;
-      const distance = window.innerWidth - car.offsetWidth - 175;
+      const rightMargin = 175;
+      const distance = window.innerWidth - car.offsetWidth - rightMargin;
       const progress = Math.min(elapsed / duration, 1);
       const carCurrentPosition = distance * progress;
 
