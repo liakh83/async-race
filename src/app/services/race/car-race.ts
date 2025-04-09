@@ -1,11 +1,12 @@
 import { getCarElementById, getCurrentGarageState } from '@/app/utils/global-state';
 import { loadCars } from '@/app/pages/garage/garage';
 import { patchEngin } from '@/app/services/api/api';
-import { animateCar, stopAnimation } from '@/app/services/animate-car/animate-car';
+import { stopAnimation, carPosition } from '@/app/services/animate-car/animate-car';
 import { showWinnerOverlay } from '@/app/utils/modal';
 import { startRaceBtn } from '@/app/view/option-button/option-btn';
 import { saveWinner } from '../winners/save-winner';
 import { createWinnerList } from '@/app/pages/winner/winner';
+import { runCar } from '../animate-car/start-car';
 
 export const startRaceHandler = async (): Promise<void> => {
   startRaceBtn.disabled = true;
@@ -21,10 +22,8 @@ export const startRaceHandler = async (): Promise<void> => {
   });
   const racePromises = carElements.map(async ({ id, name, element }) => {
     try {
-      const { velocity, distance } = await patchEngin(id, 'started');
-      const duration = distance / velocity;
       const startTime = performance.now();
-      await animateCar(element, duration, id);
+      await runCar(id, element);
 
       const endTime = performance.now();
       const timeSec = +(endTime - startTime) / 1000;
@@ -37,7 +36,11 @@ export const startRaceHandler = async (): Promise<void> => {
       }
     } catch (error) {
       stopAnimation(id);
-      console.error(`${id}`, error);
+
+      await patchEngin(id, 'stopped');
+      const currentPosition = carPosition.get(id);
+      element.style.transform = `translateX(${currentPosition}px)`;
+      console.log(`${id}`, error);
     }
   });
 
