@@ -28,6 +28,7 @@ export const createUpdateListBtn = (id: number, model: string, color: string): H
     onclick: async () => {
       const isDelete = await deleteItem(path.garage, id);
       if (isDelete) {
+        await deleteItem(path.winners, id);
         const currentPage = getCurrentGarageState();
         createGarageCarsList(currentPage);
       }
