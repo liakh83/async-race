@@ -7,10 +7,19 @@ import { createWinnerRow, createWinnerTable } from '@/app/view/winner-table/winn
 import { getCurrentWinnerPage, setCurrentWinnerPage } from '@/app/utils/global-state';
 import { createPagination } from '@/app/components/pagination/pagination';
 export const maxCarsOnPage = 10;
-const loadWinners = (page: number): Promise<{ data: Winners[]; totalItem: number }> => {
+let currentSortField: 'wins' | 'time' = 'wins';
+let currentOrder: 'ASC' | 'DESC' = 'ASC';
+
+const loadWinners = (
+  page: number,
+  sortField: 'wins' | 'time' = 'wins',
+  order: 'ASC' | 'DESC' = 'ASC',
+): Promise<{ data: Winners[]; totalItem: number }> => {
   return getData(path.winners, [
     { key: '_page', value: String(page) },
     { key: '_limit', value: String(maxCarsOnPage) },
+    { key: '_sort', value: sortField },
+    { key: '_order', value: order },
   ]);
 };
 export const winnerContainer = createElement('section', {
@@ -21,7 +30,7 @@ export const createWinnerList = (page: number = 1): void => {
   const counter = createCount('Winners', 0);
   const winnersTable = createWinnerTable();
 
-  loadWinners(getCurrentWinnerPage()).then(({ data, totalItem }) => {
+  loadWinners(getCurrentWinnerPage(), currentSortField, currentOrder).then(({ data, totalItem }) => {
     counter.update(totalItem);
     data.forEach((winner, index) => {
       createWinnerRow(winner, index, winnersTable, page);
@@ -37,4 +46,12 @@ export const createWinnerList = (page: number = 1): void => {
     );
     winnerContainer.replaceChildren(counter.element, pagination, winnersTable);
   });
+};
+
+export const handleSort = (field: 'wins' | 'time'): void => {
+  const newOrder = currentSortField === field && currentOrder === 'ASC' ? 'DESC' : 'ASC';
+  currentSortField = field;
+  currentOrder = newOrder;
+
+  createWinnerList(getCurrentWinnerPage());
 };
