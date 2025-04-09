@@ -1,10 +1,19 @@
 import '@/app/components/pagination/section-pagination.scss';
 import { createElement } from '@/app/utils/create-element';
 import { createButton } from '@/app/components/button/button';
-import { getCurrentGarageState, setCurrentGarageState } from '@/app/utils/global-state';
+import {
+  getCurrentGarageState,
+  getCurrentWinnerPage,
+  setCurrentGarageState,
+  setCurrentWinnerPage,
+} from '@/app/utils/global-state';
 
-export const createPagination = (totalPage: number, onPageCount: (newPage: number) => void): HTMLElement => {
-  let currentPage = getCurrentGarageState();
+export const createPagination = (
+  totalPage: number,
+  onPageCount: (newPage: number) => void,
+  isWinnerPage: boolean = false,
+): HTMLElement => {
+  let currentPage = isWinnerPage ? getCurrentWinnerPage() : getCurrentGarageState();
 
   const pageIndicator = createElement('span', {
     className: ['number-page'],
@@ -16,10 +25,14 @@ export const createPagination = (totalPage: number, onPageCount: (newPage: numbe
     onclick: () => {
       console.log('privies');
       if (currentPage > 1) {
-        currentPage -= 1;
-        setCurrentGarageState(currentPage);
-        updateUI();
-        onPageCount(currentPage);
+        const newPage = (currentPage -= 1);
+        if (isWinnerPage) {
+          setCurrentWinnerPage(newPage);
+        } else {
+          setCurrentGarageState(newPage);
+        }
+        updateUI(newPage);
+        onPageCount(newPage);
       }
     },
   });
@@ -29,20 +42,24 @@ export const createPagination = (totalPage: number, onPageCount: (newPage: numbe
     onclick: () => {
       console.log('next');
       if (totalPage > currentPage) {
-        currentPage += 1;
-        setCurrentGarageState(currentPage);
-        updateUI();
-        onPageCount(currentPage);
+        const newPage = (currentPage += 1);
+        if (isWinnerPage) {
+          setCurrentWinnerPage(newPage);
+        } else {
+          setCurrentGarageState(newPage);
+        }
+        updateUI(newPage);
+        onPageCount(newPage);
       }
     },
   });
 
-  const updateUI = (): void => {
-    pageIndicator.textContent = `${currentPage} / ${totalPage}`;
-    previousBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPage;
+  const updateUI = (newPage: number): void => {
+    pageIndicator.textContent = `${newPage} / ${totalPage}`;
+    previousBtn.disabled = newPage === 1;
+    nextBtn.disabled = newPage === totalPage;
   };
-  updateUI();
+  updateUI(currentPage);
 
   return createElement('div', {
     className: ['section-pagination'],

@@ -50,12 +50,16 @@ export const createGarageCarsList = (page: number = 1): void => {
 
     carsList.update(carItems);
 
-    const totalPages: number = totalItem <= 7 ? 1 : Math.ceil(totalItem / maxCarsOnPage);
+    const totalPages: number = totalItem <= maxCarsOnPage ? 1 : Math.ceil(totalItem / maxCarsOnPage);
 
-    const sectionPagination = createPagination(totalPages, (newPage) => {
-      setCurrentGarageState(newPage);
-      createGarageCarsList(newPage);
-    });
+    const sectionPagination = createPagination(
+      totalPages,
+      (newPage) => {
+        setCurrentGarageState(newPage);
+        createGarageCarsList(newPage);
+      },
+      false,
+    );
 
     const garageCarsList = createElement('div', {
       className: ['garage-car-list'],
