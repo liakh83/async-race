@@ -58,6 +58,7 @@ export const createDriveBtnControl = (id: number, car: HTMLElement): HTMLDivElem
 
   const stopBtn = createButton({
     textContent: 'Reset',
+    disabled: true,
     onclick: () => {
       resetCar(id, car);
       startBtn.disabled = false;

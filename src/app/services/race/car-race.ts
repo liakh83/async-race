@@ -42,6 +42,4 @@ export const startRaceHandler = async (): Promise<void> => {
   });
 
   await Promise.all(racePromises);
-
-  startRaceBtn.disabled = false;
 };
