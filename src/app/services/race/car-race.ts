@@ -4,6 +4,8 @@ import { patchEngin } from '@/app/services/api/api';
 import { animateCar, stopAnimation } from '@/app/services/animate-car/animate-car';
 import { showWinnerOverlay } from '@/app/utils/modal';
 import { startRaceBtn } from '@/app/view/option-button/option-btn';
+import { saveWinner } from '../winners/save-winner';
+import { createWinnerList } from '@/app/pages/winner/winner';
 
 export const startRaceHandler = async (): Promise<void> => {
   startRaceBtn.disabled = true;
@@ -30,6 +32,8 @@ export const startRaceHandler = async (): Promise<void> => {
       if (!winnerShown) {
         winnerShown = true;
         showWinnerOverlay(name, timeSec.toFixed(2));
+        saveWinner(id, timeSec);
+        createWinnerList();
       }
     } catch (error) {
       stopAnimation(id);

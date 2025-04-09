@@ -23,3 +23,10 @@ export const getCarElementById = (id: number): HTMLElement => {
   }
   return element;
 };
+
+let currentWinnerPage = 1;
+
+export const getCurrentWinnerPage = (): number => currentWinnerPage;
+export const setCurrentWinnerPage = (page: number): void => {
+  currentWinnerPage = page;
+};
