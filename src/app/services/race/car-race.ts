@@ -10,7 +10,18 @@ import { runCar } from '../animate-car/start-car';
 
 export const startRaceHandler = async (): Promise<void> => {
   startRaceBtn.disabled = true;
-
+  const starBtn = document.querySelectorAll('.start-btn');
+  starBtn.forEach((btn) => {
+    if (btn instanceof HTMLButtonElement) {
+      btn.disabled = true;
+    }
+  });
+  const stopBtn = document.querySelectorAll('.stop-btn');
+  stopBtn.forEach((btn) => {
+    if (btn instanceof HTMLButtonElement) {
+      btn.disabled = false;
+    }
+  });
   let winnerShown = false;
 
   const { data: carData } = await loadCars(getCurrentGarageState());
@@ -23,8 +34,8 @@ export const startRaceHandler = async (): Promise<void> => {
   const racePromises = carElements.map(async ({ id, name, element }) => {
     try {
       const startTime = performance.now();
-      await runCar(id, element);
-
+      const finished = await runCar(id, element);
+      if (!finished) return;
       const endTime = performance.now();
       const timeSec = +(endTime - startTime) / 1000;
 

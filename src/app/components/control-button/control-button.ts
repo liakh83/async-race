@@ -55,6 +55,7 @@ export const createDriveBtnControl = (id: number, car: HTMLElement): HTMLDivElem
       stopBtn.disabled = false;
     },
   });
+  startBtn.classList.add('start-btn');
 
   const stopBtn = createButton({
     textContent: 'Reset',
@@ -65,6 +66,7 @@ export const createDriveBtnControl = (id: number, car: HTMLElement): HTMLDivElem
       stopBtn.disabled = true;
     },
   });
+  stopBtn.classList.add('stop-btn');
 
   return createElement('div', {
     className: ['drive-button'],

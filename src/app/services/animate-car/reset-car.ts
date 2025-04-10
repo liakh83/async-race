@@ -20,9 +20,20 @@ export const stopAllAnimations = (): void => {
 };
 
 export const resetRace = async (): Promise<void> => {
+  const starBtn = document.querySelectorAll('.start-btn');
+  starBtn.forEach((btn) => {
+    if (btn instanceof HTMLButtonElement) {
+      btn.disabled = false;
+    }
+  });
+  const stopBtn = document.querySelectorAll('.stop-btn');
+  stopBtn.forEach((btn) => {
+    if (btn instanceof HTMLButtonElement) {
+      btn.disabled = true;
+    }
+  });
   stopAllAnimations();
   removeWinnerOverlay();
-
   const { data: cars } = await loadCars(getCurrentGarageState());
 
   await Promise.all(
