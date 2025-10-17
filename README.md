@@ -44,14 +44,6 @@ Implements the requirements of the **Async Race** task.
 
 ---
 
-### 📁 Repository Structure
-
-src/ # Source code (TypeScript, UI logic)
-public/ # Static assets
-README.md # This file
-vite.config.ts, tsconfig.json, eslint configs
----
-
 ## 🧰 Prerequisites
 
 - **Node.js** ≥ 16  
